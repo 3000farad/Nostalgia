@@ -1,23 +1,20 @@
 #ifndef MEDIACONTAINER_H
 #define MEDIACONTAINER_H
 
-#include <QObject>
-#include <QAbstractItemModel>
-#include "media.h"
+#include <QSharedDataPointer>
 
-class MediaContainer : public QObject
+class MediaContainerData;
+
+class MediaContainer
 {
-	Q_OBJECT
 public:
-	explicit MediaContainer(QObject *parent = 0);
+	MediaContainer();
+	MediaContainer(const MediaContainer &);
+	MediaContainer &operator=(const MediaContainer &);
+	~MediaContainer();
 	
 private:
-	QList<Media> contents;
-	
-signals:
-	
-public slots:
-	
+	QSharedDataPointer<MediaContainerData> data;
 };
 
 #endif // MEDIACONTAINER_H

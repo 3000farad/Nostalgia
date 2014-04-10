@@ -1,36 +1,23 @@
 #ifndef MEDIA_H
 #define MEDIA_H
 
-#include <QObject>
 #include <QDateTime>
 
-class Media : public QObject
+class Media
 {
-	Q_OBJECT
 	
 public:
-	typedef enum {
-		MP_ID,
-		MP_Name,
-		MP_Location
-	} Parameter;
+	Media();
+	quint32 getID();
+	QString getName();
+	QString getLocation();
+	bool findFailed;
+	bool readFailed;
 	
-	explicit Media(QObject *parent = 0);
-	
-	bool modifyParameter(Media::Parameter param, QVariant newValue);
-	
-private:
-	quint32 ID;
-	QString Name;
-	QString Location;
-	QDateTime LastPlayed;
-	QDateTime LastSkipped;
-	QDateTime DateAdded;
-	
-	
-signals:
-	
-public slots:
+protected:
+	quint32 id;
+	QString name;
+	QString location;
 	
 };
 
