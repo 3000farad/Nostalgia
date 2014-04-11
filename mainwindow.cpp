@@ -93,6 +93,30 @@ MainWindow::MainWindow(QWidget *parent) :
 	 *   Delete file			l		Ctrl+Delete
 	 * 
 	 * Playback
+	 *   Play/Pause				l		Space
+	 *   Play					a		TBD
+	 *   Pause					u		TBD
+	 *   Stop
+	 *   Rewind
+	 *   Go to time
+	 *   Next track
+	 *   Previous track
+	 *  <sep>
+	 *   Volume up
+	 *   Volume down
+	 *   Equalizer
+	 *  <sep>
+	 *   Shuffle off
+	 *   Shuffle all
+	 *   Shuffle within list
+	 *   Shuffle lists
+	 *   Shuffle within list, then shuffle to next list
+	 *   Sequenced shuffle		TBD		TBD
+	 *  <sep>
+	 *   Repeat off
+	 *   Repeat song
+	 *   Repeat list
+	 *   Repeat library			TBD		TBD  (disabled when not in a shuffle mode that allows it)
 	 * 
 	 * Playlist
 	 * 
@@ -102,6 +126,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	 *    Move library			m
 	 *    Load a library		
 	 *    Library options		o
+	 *  <sep>
+	 *   Equalizer
+	 *  <sep>
+	 *   Library statistics
+	 *   Selection statistics
+	 * 
 	 * 
 	 * Options
 	 * 
