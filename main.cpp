@@ -22,15 +22,23 @@
 
 #include "mainwindow.h"
 #include <QApplication>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	a.setWindowIcon();
+	QApplication app(argc, argv);
 	
-	// TODO:  SPLASH SCREEN HERE
+	// TODO:  SPLASH SCREEN HERE  (Note: splash screen must not have any translatable text on it)
+	
+	QIcon icon (":/icons/icon32.png");
+	app.setWindowIcon(icon);
 	
 	// TODO:  OPTIONS LOADING HERE
+	
+	QString locale = QLocale::system().name();  // TODO:  Make this based on settings if available
+	QTranslator translator;
+	translator.load(QString("arrowpad_") + locale);
+	app.installTranslator(&translator);
 	
 	// TODO:  START AN INSTANCE OF LibraryManager in new thread
 	
@@ -40,8 +48,10 @@ int main(int argc, char *argv[])
 	/// MainWindow Setup ///
 	////////////////////////
 	
-	MainWindow w;
-	w.show();
+	MainWindow window;
+	window.show();
 	
-	return a.exec();
+	// TODO:  KILL SPLASH SCREEN HERE (after ensuring it has been up for 3 seconds)
+	
+	return app.exec();
 }

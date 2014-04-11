@@ -27,7 +27,9 @@ HEADERS  += mainwindow.h \
     mediacontainer.h \
     librarymanager.h
 
-FORMS    += mainwindow.ui
+#FORMS    += mainwindow.ui
+
+TRANSLATIONS += nostalgia_es.ts
 
 OTHER_FILES += \
     DevNotes.txt

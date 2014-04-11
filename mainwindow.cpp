@@ -47,13 +47,67 @@ MainWindow::MainWindow(QWidget *parent) :
 	tableStack = new QStackedWidget(this);
 	tableStack->addWidget(TEMPTBD);
 	tableStack->addWidget(TEMPTBD2);
-	statusBar()->showMessage(QString("Counted %1 widgets").arg(tableStack->count()));
 	
 	setCentralWidget(tableStack);
 	
 	/////////////////////
 	/// MENU BUILDING ///
 	/////////////////////
+	 
+	/*  Menu Structure
+	 * 
+	 * Name			Activator key		Default shortcut
+	 * File						F
+	 *   Open file				o		Alt+O
+	 *   Open stream			s		Alt+S
+	 *  <sep>
+	 *   Import file			i		Ctrl+O, also Ctrl+I on non-Mac
+	 *   Import wizard			a		Ctrl+Shift+O, also Ctrl+Shift+I on non-Mac
+	 *   Import stream			t		Ctrl+S
+	 *  <sep>
+	 *   Properties				p		Ctrl+P, also Ctrl+I on Mac
+	 *   Show file				h		Ctrl+H
+	 *   Convert				c		
+	 *   Add to playlist sub	d
+	 *   Show in playlist sub	w
+	 *  <sep>
+	 *   Quit					q		Ctrl+Q, Alt+F4
+	 * 
+	 * Edit						E
+	 *   Undo					u		Ctrl+Z
+	 *   Redo					o		Ctrl+Shift+Z
+	 *  <sep>
+	 *   Copy (cut)				c		Ctrl+C, Ctrl+X
+	 *   Paste					p		Ctrl+V
+	 *  <sep>
+	 *   Select all				a		Ctrl+A
+	 *   Deselect all			d		Ctrl+Shift+A
+	 *   Invert selection		i		Ctrl+Alt+A
+	 *   Select by artist		r		Ctrl+Shift+R
+	 *   Select by album		l		Ctrl+Shift+L
+	 *   Select by album artist	b		Ctrl+Shift+B
+	 *   Select by tags			t		Ctrl+Shift+T
+	 *  <sep>
+	 *   Remove from list		v		Backspace
+	 *   Remove from library	e		Delete
+	 *   Delete file			l		Ctrl+Delete
+	 * 
+	 * Playback
+	 * 
+	 * Playlist
+	 * 
+	 * Tools					T
+	 *	Library sub				L
+	 *    Export library		e		
+	 *    Move library			m
+	 *    Load a library		
+	 *    Library options		o
+	 * 
+	 * Options
+	 * 
+	 * Help
+	 * 
+	 */
 	
 	/// File Menu ///
 	fileMenu = menuBar()->addMenu(tr("&File"));
@@ -64,10 +118,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(openFileAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(openFileAct);
 	
-	openStreamAct = new QAction(tr("&Open a stream or podcast..."), this);
+	openStreamAct = new QAction(tr("Open a &stream or podcast..."), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	openStreamAct->setStatusTip(tr("Temporarily open a stream or podcast episode without importing it"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(openStreamAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(openStreamAct);
 	
 	fileMenu->addSeparator();
@@ -75,19 +129,19 @@ MainWindow::MainWindow(QWidget *parent) :
 	importFilesAct = new QAction(tr("&Import files..."), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	importFilesAct->setStatusTip(tr("Import new files to your library"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(importFilesAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(importFilesAct);
 	
 	importWizardAct = new QAction(tr("&Advanced import..."), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	importWizardAct->setStatusTip(tr("Import new files to your library using the Import Wizard"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(importWizardAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(importWizardAct);
 	
-	importStreamAct = new QAction(tr("&Import stream or podcast..."), this);
+	importStreamAct = new QAction(tr("I&mport stream or podcast..."), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	importStreamAct->setStatusTip(tr("Import a stream or podcast to your library"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(importStreamAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(importStreamAct);
 	
 	fileMenu->addSeparator();
@@ -95,20 +149,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	exportLibAct = new QAction(tr("&Export library..."), this);
 	//exportLibAct->setShortcuts(QKeySequence::New);
 	exportLibAct->setStatusTip(tr("Export your library for import elsewhere"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(exportLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(exportLibAct);
 	
 	moveLibAct = new QAction(tr("&Move library..."), this);
 	//moveLibAct->setShortcuts(QKeySequence::New);
 	moveLibAct->setEnabled(false);  // TODO:  Set to rely on the setting whether or not library is automatically organized
 	moveLibAct->setStatusTip(tr("Move your library to a new location"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(moveLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(moveLibAct);
 	
 	loadDiffLibAct = new QAction(tr("&Load a library..."), this);
 	//loadDiffLibAct->setShortcuts(QKeySequence::New);
 	loadDiffLibAct->setStatusTip(tr("Select a different library to load and restart Nostalgia"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(loadDiffLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(loadDiffLibAct);
 	
 	fileMenu->addSeparator();
@@ -119,20 +173,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	
 	editMenu = menuBar()->addMenu(tr("&Edit"));
-	//libraryMenu->addAction(newAct);
-	//libraryMenu->addSeparator();
-	
-	
-	/// Playlist Menu ///
-	//newAct = new QAction(tr("&New"), this);
-	//newAct->setShortcuts(QKeySequence::New);
-	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
-	
-	playlistMenu = menuBar()->addMenu(tr("&Playlist"));
 	//libraryMenu->addAction(newAct);
 	//libraryMenu->addSeparator();
 	
@@ -144,9 +187,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	QList<QKeySequence> TEMPLISTOFKEYSEQUENCES; TEMPLISTOFKEYSEQUENCES.append(QKeySequence(Qt::Key_Space));  // TODO:  REMOVE (put in settings)
 	playPauseAct->setShortcuts(TEMPLISTOFKEYSEQUENCES);
 	playPauseAct->setStatusTip(tr("Toggle playback"));
-	connect(playPauseAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	connect(playPauseAct, SIGNAL(triggered()), this, SLOT(tbd()));
 	
 	playbackMenu->addAction(playPauseAct);
+	//libraryMenu->addSeparator();
+	
+	
+	/// Playlist Menu ///
+	//newAct = new QAction(tr("&New"), this);
+	//newAct->setShortcuts(QKeySequence::New);
+	//newAct->setStatusTip(tr("Create a new file"));
+	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	
+	playlistMenu = menuBar()->addMenu(tr("&Playlist"));
+	//libraryMenu->addAction(newAct);
 	//libraryMenu->addSeparator();
 	
 	
@@ -154,7 +208,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	
 	toolsMenu = menuBar()->addMenu(tr("&Tools"));
 	//libraryMenu->addAction(newAct);
@@ -165,7 +219,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	
 	optionsMenu = menuBar()->addMenu(tr("&Options"));
 	//libraryMenu->addAction(newAct);
@@ -176,7 +230,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	
 	helpMenu = menuBar()->addMenu(tr("&Help"));
 	//libraryMenu->addAction(newAct);
@@ -215,12 +269,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	/// OTHER INITIALIZATIONS ///
 	/////////////////////////////
 	
-	notImplementedMessage = new QMessageBox(QMessageBox::Information,
-		tr("Feature Not Implemented"),
-		tr("Unfortunately, the item you requested has not yet been implemented.  You "
-		   "can either wait until a new version is released (ETA: probably years) or contact the "
-		   "developers and harshly demand they implement it now.  Results may vary."),
-		   QMessageBox::Ok);
 	
 }
 
@@ -229,6 +277,21 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 }
 
 void MainWindow::notImplemented() {
+	QMessageBox *notImplementedMessage = new QMessageBox(QMessageBox::Information,
+		tr("Feature Not Implemented", "Dialog title"),
+		tr("Unfortunately, the item you requested has not yet been implemented.  You "
+		   "can either wait until a new version is released (ETA: probably years) or contact the "
+		   "developers and harshly demand they implement it now.  Results may vary."),
+		   QMessageBox::Ok);
+	notImplementedMessage->show();
+	statusBar()->showMessage(tr("Feature Not Implemented"));
+}
+
+void MainWindow::tbd() {
+	QMessageBox *notImplementedMessage = new QMessageBox(QMessageBox::Critical,
+		"fuc",
+		"fuc",
+														 QMessageBox::No);
 	notImplementedMessage->show();
 	statusBar()->showMessage(tr("Feature Not Implemented"));
 }

@@ -52,10 +52,10 @@ public:
 	QAction *moveLibAct;
 	QAction *loadDiffLibAct;
 	QAction *playPauseAct;
-	QMessageBox *notImplementedMessage;
 	
 public slots:
 	void notImplemented();
+	void tbd();
 	
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
@@ -68,8 +68,8 @@ private:
 	QTreeWidget *listSelector;
 	QMenu *fileMenu;
 	QMenu *editMenu;
-	QMenu *playlistMenu;
 	QMenu *playbackMenu;
+	QMenu *playlistMenu;
 	QMenu *toolsMenu;
 	QMenu *optionsMenu;
 	QMenu *helpMenu;
