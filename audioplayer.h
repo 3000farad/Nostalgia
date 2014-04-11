@@ -22,6 +22,7 @@
 #define AUDIOPLAYER_H
 
 #include <QObject>
+#include <QThread>
 
 class AudioPlayer : public QObject
 {

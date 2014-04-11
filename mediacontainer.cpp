@@ -19,7 +19,6 @@
 *********************************************************/
 
 #include "mediacontainer.h"
-#include <QSharedData>
 
 class MediaContainerData : public QSharedData {
 public:

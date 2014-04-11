@@ -1,0 +1,9 @@
+JP 2014/4/10:
+// Failed attempt at adding a text-based separator (it highlights on hover)
+QAction *libraryActionSeparator = new QAction(tr("&Library actions:"), this);
+libraryActionSeparator->setEnabled(false);
+QFont tempfont(libraryActionSeparator->font());
+tempfont.setItalic(true);
+libraryActionSeparator->setFont(tempfont);
+libraryActionSeparator->setStatusTip(tr("Actions in this group deal with your library as a whole"));
+fileMenu->addAction(libraryActionSeparator);

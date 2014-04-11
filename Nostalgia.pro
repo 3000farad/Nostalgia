@@ -28,3 +28,9 @@ HEADERS  += mainwindow.h \
     librarymanager.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES += \
+    DevNotes.txt
+
+RESOURCES += \
+    Resources.qrc

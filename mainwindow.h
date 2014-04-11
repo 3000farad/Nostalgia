@@ -23,11 +23,14 @@
 
 #include <QMainWindow>
 #include <QAction>
+#include <QStatusBar>
+#include <QMenuBar>
 #include <QMenu>
 #include <QStackedWidget>
-#include <QListWidget>
+#include <QListWidget>  // TODO:  REMOVE THIS
 #include <QDockWidget>
 #include <QTreeWidget>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -40,27 +43,36 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
+	QAction *openFileAct;
+	QAction *openStreamAct;
+	QAction *importFilesAct;
+	QAction *importWizardAct;
+	QAction *importStreamAct;
+	QAction *exportLibAct;
+	QAction *moveLibAct;
+	QAction *loadDiffLibAct;
+	QAction *playPauseAct;
+	QMessageBox *notImplementedMessage;
+	
+public slots:
+	void notImplemented();
 	
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 	
 private slots:
-	void newFile();
 	
 private:
-	//Ui::MainWindow *ui;
 	QStackedWidget *tableStack;
 	QDockWidget *listSelectorDock;
 	QTreeWidget *listSelector;
-	QMenu *libraryMenu;
-	QMenu *playlistMenu;
+	QMenu *fileMenu;
 	QMenu *editMenu;
-	QMenu *controlsMenu;
-	QMenu *dataMenu;
+	QMenu *playlistMenu;
+	QMenu *playbackMenu;
+	QMenu *toolsMenu;
 	QMenu *optionsMenu;
 	QMenu *helpMenu;
-	QAction *newAct;  // TODO:  REMOVE
-	QAction *playPauseAct;
 	
 	QListWidget *TEMPTBD;
 	QListWidget *TEMPTBD2;

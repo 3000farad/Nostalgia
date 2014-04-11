@@ -20,6 +20,6 @@
 
 #include "song.h"
 
-Song::Song()
+Song::Song(quint32 m_id) : Media::Media(m_id)
 {
 }

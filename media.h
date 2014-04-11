@@ -27,7 +27,7 @@ class Media
 {
 	
 public:
-	Media();
+	Media(quint32 m_id);
 	quint32 getID();
 	QString getName();
 	QString getLocation();

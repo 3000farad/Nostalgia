@@ -21,6 +21,7 @@
 #ifndef MEDIACONTAINER_H
 #define MEDIACONTAINER_H
 
+#include <QSharedData>
 #include <QSharedDataPointer>
 
 class MediaContainerData;

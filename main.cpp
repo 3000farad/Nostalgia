@@ -1,6 +1,8 @@
 /*********************************************************
 *  This file is part of Nostalgia.                       *
 *                                                        *
+*  Nostalgia is Copyright Jason Prince 2014.             *
+*                                                        *
 *  Nostalgia is free software: you can redistribute it   *
 *  and/or modify it under the terms of the GNU General   *
 *  Public License as published by the Free Software      *
@@ -24,16 +26,20 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+	a.setWindowIcon();
 	
 	// TODO:  SPLASH SCREEN HERE
 	
 	// TODO:  OPTIONS LOADING HERE
 	
+	// TODO:  START AN INSTANCE OF LibraryManager in new thread
+	
 	// TODO:  START AN INSTANCE OF AudioPlayer in new thread
 	
-	//////////////////////
-	// MainWindow Setup //
-	//////////////////////
+	////////////////////////
+	/// MainWindow Setup ///
+	////////////////////////
+	
 	MainWindow w;
 	w.show();
 	

@@ -22,6 +22,7 @@
 #define LIBRARYMANAGER_H
 
 #include <QObject>
+#include <QThread>
 
 class LibraryManager : public QObject
 {

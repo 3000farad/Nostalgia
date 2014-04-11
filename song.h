@@ -26,7 +26,7 @@
 class Song : public Media
 {
 public:
-	Song();
+	Song(quint32 m_id);
 };
 
 #endif // SONG_H
