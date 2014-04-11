@@ -54,8 +54,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	/// MENU BUILDING ///
 	/////////////////////
 	 
-	/*  Menu Structure
-	 * 
+
+
+	
+
+	
+	/// File Menu ///
+	fileMenu = menuBar()->addMenu(tr("&File"));
+	
+	/*                  Menu Structure
 	 * Name			Activator key		Default shortcut
 	 * File						F
 	 *   Open file				o		Alt+O
@@ -64,91 +71,23 @@ MainWindow::MainWindow(QWidget *parent) :
 	 *   Import file			i		Ctrl+O, also Ctrl+I on non-Mac
 	 *   Import wizard			a		Ctrl+Shift+O, also Ctrl+Shift+I on non-Mac
 	 *   Import stream			t		Ctrl+S
-	 *  <sep>
+	 *  <sep>							(ENTIRE SECTION DISABLED WHEN NOTHING IS SELECTED)
 	 *   Properties				p		Ctrl+P, also Ctrl+I on Mac
 	 *   Show file				h		Ctrl+H
 	 *   Convert				c		
-	 *   Add to playlist sub	d
-	 *   Show in playlist sub	w
+	 *   //Add to playlist sub	d
+	 *   //Show in playlist sub	w
 	 *  <sep>
-	 *   Quit					q		Ctrl+Q, Alt+F4
-	 * 
-	 * Edit						E
-	 *   Undo					u		Ctrl+Z
-	 *   Redo					o		Ctrl+Shift+Z
-	 *  <sep>
-	 *   Copy (cut)				c		Ctrl+C, Ctrl+X
-	 *   Paste					p		Ctrl+V
-	 *  <sep>
-	 *   Select all				a		Ctrl+A
-	 *   Deselect all			d		Ctrl+Shift+A
-	 *   Invert selection		i		Ctrl+Alt+A
-	 *   Select by artist		r		Ctrl+Shift+R
-	 *   Select by album		l		Ctrl+Shift+L
-	 *   Select by album artist	b		Ctrl+Shift+B
-	 *   Select by tags			t		Ctrl+Shift+T
-	 *  <sep>
-	 *   Remove from list		v		Backspace
-	 *   Remove from library	e		Delete
-	 *   Delete file			l		Ctrl+Delete
-	 * 
-	 * Playback
-	 *   Play/Pause				l		Space
-	 *   Play					a		TBD
-	 *   Pause					u		TBD
-	 *   Stop
-	 *   Rewind
-	 *   Go to time
-	 *   Next track
-	 *   Previous track
-	 *  <sep>
-	 *   Volume up
-	 *   Volume down
-	 *   Equalizer
-	 *  <sep>
-	 *   Shuffle off
-	 *   Shuffle all
-	 *   Shuffle within list
-	 *   Shuffle lists
-	 *   Shuffle within list, then shuffle to next list
-	 *   Sequenced shuffle		TBD		TBD
-	 *  <sep>
-	 *   Repeat off
-	 *   Repeat song
-	 *   Repeat list
-	 *   Repeat library			TBD		TBD  (disabled when not in a shuffle mode that allows it)
-	 * 
-	 * Playlist
-	 * 
-	 * Tools					T
-	 *	Library sub				L
-	 *    Export library		e		
-	 *    Move library			m
-	 *    Load a library		
-	 *    Library options		o
-	 *  <sep>
-	 *   Equalizer
-	 *  <sep>
-	 *   Library statistics
-	 *   Selection statistics
-	 * 
-	 * 
-	 * Options
-	 * 
-	 * Help
-	 * 
+	 *   Quit					q		Ctrl+Q, Alt+F4  (MenuRole must be set to QAction::QuitRole)
 	 */
 	
-	/// File Menu ///
-	fileMenu = menuBar()->addMenu(tr("&File"));
-	
-	openFileAct = new QAction(tr("&Open a file..."), this);
+	openFileAct = new QAction(tr("&Open a file...", "File menu"), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	openFileAct->setStatusTip(tr("Temporarily open a file without importing it"));
 	connect(openFileAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(openFileAct);
 	
-	openStreamAct = new QAction(tr("Open a &stream or podcast..."), this);
+	openStreamAct = new QAction(tr("Open a &stream or podcast...", "File menu"), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	openStreamAct->setStatusTip(tr("Temporarily open a stream or podcast episode without importing it"));
 	connect(openStreamAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
@@ -156,19 +95,19 @@ MainWindow::MainWindow(QWidget *parent) :
 	
 	fileMenu->addSeparator();
 	
-	importFilesAct = new QAction(tr("&Import files..."), this);
+	importFilesAct = new QAction(tr("&Import files...", "File menu"), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	importFilesAct->setStatusTip(tr("Import new files to your library"));
 	connect(importFilesAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(importFilesAct);
 	
-	importWizardAct = new QAction(tr("&Advanced import..."), this);
+	importWizardAct = new QAction(tr("&Advanced import...","File menu"), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	importWizardAct->setStatusTip(tr("Import new files to your library using the Import Wizard"));
 	connect(importWizardAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
 	fileMenu->addAction(importWizardAct);
 	
-	importStreamAct = new QAction(tr("I&mport stream or podcast..."), this);
+	importStreamAct = new QAction(tr("Import s&tream or podcast...", "File menu"), this);
 	//importLibAct->setShortcuts(QKeySequence::New);
 	importStreamAct->setStatusTip(tr("Import a stream or podcast to your library"));
 	connect(importStreamAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
@@ -176,95 +115,219 @@ MainWindow::MainWindow(QWidget *parent) :
 	
 	fileMenu->addSeparator();
 	
-	exportLibAct = new QAction(tr("&Export library..."), this);
-	//exportLibAct->setShortcuts(QKeySequence::New);
-	exportLibAct->setStatusTip(tr("Export your library for import elsewhere"));
-	connect(exportLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	fileMenu->addAction(exportLibAct);
+	itemToolsGroup = new QActionGroup(this);  // Allows these to be easily enabled/disabled
+	itemToolsGroup->setExclusive(false);
+	itemToolsGroup->setEnabled(false);  // TODO:  Base on whether or not something is selected
 	
-	moveLibAct = new QAction(tr("&Move library..."), this);
-	//moveLibAct->setShortcuts(QKeySequence::New);
-	moveLibAct->setEnabled(false);  // TODO:  Set to rely on the setting whether or not library is automatically organized
-	moveLibAct->setStatusTip(tr("Move your library to a new location"));
-	connect(moveLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	fileMenu->addAction(moveLibAct);
+	propertiesAct = new QAction(tr("&Properties...", "File menu"), this);
+	//importLibAct->setShortcuts(QKeySequence::New);
+	propertiesAct->setStatusTip(tr("View and edit the properties of selection"));
+	connect(propertiesAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	fileMenu->addAction(propertiesAct);
+	itemToolsGroup->addAction(propertiesAct);
 	
-	loadDiffLibAct = new QAction(tr("&Load a library..."), this);
-	//loadDiffLibAct->setShortcuts(QKeySequence::New);
-	loadDiffLibAct->setStatusTip(tr("Select a different library to load and restart Nostalgia"));
-	connect(loadDiffLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	fileMenu->addAction(loadDiffLibAct);
+	showFileAct = new QAction(tr("S&how file...", "File menu"), this);
+	//importLibAct->setShortcuts(QKeySequence::New);
+	showFileAct->setStatusTip(tr("Show the file in the filesystem"));
+	connect(showFileAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	fileMenu->addAction(showFileAct);
+	itemToolsGroup->addAction(showFileAct);
+	
+	convertAct = new QAction(tr("&Convert...", "File menu"), this);
+	//importLibAct->setShortcuts(QKeySequence::New);
+	convertAct->setStatusTip(tr("Convert this file to a different file type"));
+	connect(convertAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	fileMenu->addAction(convertAct);
+	itemToolsGroup->addAction(convertAct);
 	
 	fileMenu->addSeparator();
+	
+	quitAct = new QAction(tr("&Quit", "File menu"), this);
+	quitAct->setMenuRole(QAction::QuitRole);
+	//importLibAct->setShortcuts(QKeySequence::New);
+	quitAct->setStatusTip(tr("Exit Nostalgia"));
+	connect(quitAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	fileMenu->addAction(quitAct);
 	
 	
 	
 	/// Edit Menu ///
+	editMenu = menuBar()->addMenu(tr("&Edit"));
+	
+	/*                  Menu Structure
+	 * Name			Activator key		Default shortcut
+	 * Edit						E
+     *   Undo					u		Ctrl+Z
+     *   Redo					o		Ctrl+Shift+Z
+     *  <sep>
+     *   Copy (cut)				c		Ctrl+C, Ctrl+X
+     *   Paste					p		Ctrl+V
+     *  <sep>
+     *   Select all				a		Ctrl+A
+     *   Deselect all			d		Ctrl+Shift+A
+     *   Invert selection		i		Ctrl+Alt+A
+     *   Select by artist		r		Ctrl+Shift+R
+     *   Select by album		l		Ctrl+Shift+L
+     *   Select by album artist	b		Ctrl+Shift+B
+     *   Select by tags			t		Ctrl+Shift+T
+     *  <sep>
+     *   Remove from list		v		Backspace
+     *   Remove from library	e		Delete
+     *   Delete file			l		Ctrl+Delete
+	 */
+		
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
 	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	
-	editMenu = menuBar()->addMenu(tr("&Edit"));
 	//libraryMenu->addAction(newAct);
-	//libraryMenu->addSeparator();
 	
 	
 	/// Playback Menu ///
-	playbackMenu = menuBar()->addMenu(tr("&Playback"));
+	playbackMenu = menuBar()->addMenu(tr("Play&back"));
 	
-	playPauseAct = new QAction(tr("&Play/Pause"), this);
+	/*                  Menu Structure
+	 * Name			Activator key		Default shortcut
+	 * Playback					B
+	 *   Play/Pause				p		Space
+	 *   Play					a		Ctrl+Space
+	 *   Pause					u		Alt+Space
+	 *   Stop					s		Ctrl+Shift+Space
+	 *   Rewind					r		Left, A
+	 *   Go to time				g		Ctrl+G
+	 *   Next track				n		Right, D
+	 *   Previous track			t		Ctrl+Left
+	 *  <sep>
+	 *   Volume up				v		+, =, Shift+=
+	 *   Volume down			d		-
+	 *   Equalizer				e		Ctrl+E
+	 *  playbackMenu->addSeparator()->setText(tr("Shuffle mode"));
+	 *   Shuffle off			o		TBD
+	 *   Shuffle all			l		TBD
+	 *   Shuffle within list	w		TBD
+	 *   Shuffle lists			i		TBD
+	 *   Shuffle within list, then shuffle to next list		TBD		TBD
+	 *  playbackMenu->addSeparator()->setText(tr("Repeat mode"));
+	 *   Repeat off				p		TBD
+	 *   Repeat song					TBD
+	 *   Repeat list					TBD
+	 *   Repeat library					TBD  (disabled when not in a shuffle mode that allows it)
+	 */
+	
+	playPauseAct = new QAction(tr("&Play/Pause", "Playback menu"), this);
 	QList<QKeySequence> TEMPLISTOFKEYSEQUENCES; TEMPLISTOFKEYSEQUENCES.append(QKeySequence(Qt::Key_Space));  // TODO:  REMOVE (put in settings)
 	playPauseAct->setShortcuts(TEMPLISTOFKEYSEQUENCES);
 	playPauseAct->setStatusTip(tr("Toggle playback"));
 	connect(playPauseAct, SIGNAL(triggered()), this, SLOT(tbd()));
-	
 	playbackMenu->addAction(playPauseAct);
-	//libraryMenu->addSeparator();
 	
 	
 	/// Playlist Menu ///
+	playlistMenu = menuBar()->addMenu(tr("Play&list"));
+	
+	/*                  Menu Structure
+	 * Name			Activator key		Default shortcut 
+	 * Playlist					L
+	 * 
+	 */
+	
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
 	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	
-	playlistMenu = menuBar()->addMenu(tr("&Playlist"));
 	//libraryMenu->addAction(newAct);
-	//libraryMenu->addSeparator();
 	
 	
 	/// Tools Menu ///
-	//newAct = new QAction(tr("&New"), this);
-	//newAct->setShortcuts(QKeySequence::New);
-	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	
 	toolsMenu = menuBar()->addMenu(tr("&Tools"));
-	//libraryMenu->addAction(newAct);
-	//libraryMenu->addSeparator();
+	
+	/*                  Menu Structure
+	 * Name			Activator key		Default shortcut
+	 * Tools					T
+	 *	Library sub				L
+	 *    Export library		e		
+	 *    Move library			m
+	 *    Load a library		a
+	 *    Create new library	c
+	 *    Library options		o
+	 *  <sep>
+	 *   Equalizer				e		TBD
+	 *  <sep>
+	 *   Library statistics
+	 *   Selection statistics
+	 *  <sep>
+	 *   Options				p		Ctrl+,  (MenuRole must be set to QAction::PreferencesRole)
+	 * 
+	 */
 	
 	
-	/// Options Menu ///
+	exportLibAct = new QAction(tr("&Export library...", "Tools menu"), this);
+	//exportLibAct->setShortcuts(QKeySequence::New);
+	exportLibAct->setStatusTip(tr("Export your library for import elsewhere"));
+	connect(exportLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	toolsMenu->addAction(exportLibAct);
+	
+	moveLibAct = new QAction(tr("&Move library...", "Tools menu"), this);
+	//moveLibAct->setShortcuts(QKeySequence::New);
+	moveLibAct->setEnabled(false);  // TODO:  Set to rely on the setting whether or not library is automatically organized
+	moveLibAct->setStatusTip(tr("Move your library to a new location"));
+	connect(moveLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	toolsMenu->addAction(moveLibAct);
+	
+	loadDiffLibAct = new QAction(tr("&Load a library...", "Tools menu"), this);
+	//loadDiffLibAct->setShortcuts(QKeySequence::New);
+	loadDiffLibAct->setStatusTip(tr("Select a different library to load and restart Nostalgia"));
+	connect(loadDiffLibAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	toolsMenu->addAction(loadDiffLibAct);
+	
+	
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
 	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	
-	optionsMenu = menuBar()->addMenu(tr("&Options"));
 	//libraryMenu->addAction(newAct);
-	//libraryMenu->addSeparator();
+	
+	
+	/// View Menu ///
+	viewMenu = menuBar()->addMenu(tr("&View"));
+	
+	/*                  Menu Structure
+	 * Name			Activator key		Default shortcut
+	 * View						V
+	 *   Show in shuffled order	TBD		TBD (checkable; disabled in an album view)
+	 * 
+	 */
+	
+	//newAct = new QAction(tr("&New"), this);
+	//newAct->setShortcuts(QKeySequence::New);
+	//newAct->setStatusTip(tr("Create a new file"));
+	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	//libraryMenu->addAction(newAct);
 	
 	
 	/// Help Menu ///
+	helpMenu = menuBar()->addMenu(tr("&Help"));
+	
+	/*                  Menu Structure
+	 * Name			Activator key		Default shortcut
+	 * Help						H
+	 *   Check for new version	c
+	 *  <sep>
+	 *   Documentation			d		Ctrl+H, F1
+	 *   Forums					f
+	 *   Report a bug			r
+	 *  <sep>
+	 *   View on GitHub			g
+	 *   About Nostalgia		n		(MenuRole must be set to QAction::AboutRole)
+	 *   About Qt				q		(MenuRole must be set to QAction::AboutQtRole)
+	 * 
+	 */
+	
 	//newAct = new QAction(tr("&New"), this);
 	//newAct->setShortcuts(QKeySequence::New);
 	//newAct->setStatusTip(tr("Create a new file"));
 	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	
-	helpMenu = menuBar()->addMenu(tr("&Help"));
 	//libraryMenu->addAction(newAct);
-	//libraryMenu->addSeparator();
 	
 	
 	/////////////////////

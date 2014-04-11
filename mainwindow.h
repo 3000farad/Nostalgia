@@ -48,6 +48,11 @@ public:
 	QAction *importFilesAct;
 	QAction *importWizardAct;
 	QAction *importStreamAct;
+	QActionGroup *itemToolsGroup;
+	QAction *propertiesAct;
+	QAction *showFileAct;
+	QAction *convertAct;
+	QAction *quitAct;
 	QAction *exportLibAct;
 	QAction *moveLibAct;
 	QAction *loadDiffLibAct;
@@ -71,7 +76,7 @@ private:
 	QMenu *playbackMenu;
 	QMenu *playlistMenu;
 	QMenu *toolsMenu;
-	QMenu *optionsMenu;
+	QMenu *viewMenu;
 	QMenu *helpMenu;
 	
 	QListWidget *TEMPTBD;
