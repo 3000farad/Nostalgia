@@ -31,6 +31,8 @@
 #include <QDockWidget>
 #include <QTreeWidget>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 namespace Ui {
 class MainWindow;
@@ -43,6 +45,8 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
+	
+	// File Menu Actions
 	QAction *openFileAct;
 	QAction *openStreamAct;
 	QAction *importFilesAct;
@@ -53,12 +57,26 @@ public:
 	QAction *showFileAct;
 	QAction *convertAct;
 	QAction *quitAct;
+	
+	// Playback Menu Actions
+	QAction *playPauseAct;
+	
+	// Tools Menu Actions
 	QAction *exportLibAct;
 	QAction *moveLibAct;
 	QAction *loadDiffLibAct;
-	QAction *playPauseAct;
+	
+	// Help Menu Actions
+	QAction *docsAct;
+	QAction *forumsAct;
+	QAction *reportBugAct;
+	QAction *checkNewVersionAct;
+	QAction *viewOnGitHubAct;
+	QAction *aboutAct;
+	QAction *aboutQtAct;
 	
 public slots:
+	void viewOnGithub();
 	void notImplemented();
 	void tbd();
 	

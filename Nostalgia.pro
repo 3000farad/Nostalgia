@@ -17,15 +17,15 @@ SOURCES += main.cpp\
     media.cpp \
     audioplayer.cpp \
     song.cpp \
-    mediacontainer.cpp \
-    librarymanager.cpp
+    librarymanager.cpp \
+    librarycontainer.cpp
 
 HEADERS  += mainwindow.h \
     media.h \
     audioplayer.h \
     song.h \
-    mediacontainer.h \
-    librarymanager.h
+    librarymanager.h \
+    librarycontainer.h
 
 #FORMS    += mainwindow.ui
 

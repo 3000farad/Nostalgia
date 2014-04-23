@@ -53,11 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	/////////////////////
 	/// MENU BUILDING ///
 	/////////////////////
-	 
-
-
 	
-
 	
 	/// File Menu ///
 	fileMenu = menuBar()->addMenu(tr("&File"));
@@ -194,18 +190,19 @@ MainWindow::MainWindow(QWidget *parent) :
 	 *   Pause					u		Alt+Space
 	 *   Stop					s		Ctrl+Shift+Space
 	 *   Rewind					r		Left, A
+	 *   Rewind & play			y		TBD
 	 *   Go to time				g		Ctrl+G
 	 *   Next track				n		Right, D
 	 *   Previous track			t		Ctrl+Left
 	 *  <sep>
-	 *   Volume up				v		+, =, Shift+=
+	 *   Volume up				i		+, =, Shift+=
 	 *   Volume down			d		-
 	 *   Equalizer				e		Ctrl+E
 	 *  playbackMenu->addSeparator()->setText(tr("Shuffle mode"));
 	 *   Shuffle off			o		TBD
 	 *   Shuffle all			l		TBD
 	 *   Shuffle within list	w		TBD
-	 *   Shuffle lists			i		TBD
+	 *   Shuffle lists			f		TBD
 	 *   Shuffle within list, then shuffle to next list		TBD		TBD
 	 *  playbackMenu->addSeparator()->setText(tr("Repeat mode"));
 	 *   Repeat off				p		TBD
@@ -220,6 +217,146 @@ MainWindow::MainWindow(QWidget *parent) :
 	playPauseAct->setStatusTip(tr("Toggle playback"));
 	connect(playPauseAct, SIGNAL(triggered()), this, SLOT(tbd()));
 	playbackMenu->addAction(playPauseAct);
+	
+	Act = new QAction(tr("Pl&ay", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Play if not playing"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("Pa&use", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Pause if not paused"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("&Stop", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Stop, rewind, and return playback pointer to default"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("&Rewind", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Return to beginning of song"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("Rewind and pla&y", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Start playing from the beginning of the song"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("&Go to time...", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Enter a time to jump to in the current song"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("&Next track", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Skip to the next track"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("Previous &track", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Return to the previous song"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	playbackMenu->addSeparator();
+	
+	Act = new QAction(tr("&Increase volume", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Bump up the volume a bit"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("&Decrease volume", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Drop the volume a bit"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	Act = new QAction(tr("&Equalizer...", "Playback menu"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Open the equalizer"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	
+	playbackMenu->addSeparator()->setText(tr("Shuffle mode", "Playback menu (section title)"));
+	
+	shuffleModeGroup = new QActionGroup(this);  // Makes these exclusive
+	
+	Act = new QAction(tr("All", "Shuffle mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Shuffle every track in library", "Shuffle mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	shuffleModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("Off", "Shuffle mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Play everything in order", "Shuffle mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	shuffleModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("List", "Shuffle mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Shuffle the current list, but switch to next list after", "Shuffle mode"));
+	Act->setEnabled(false);  // TODO:  Base off the current repeat setting
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	shuffleModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("List ordering", "Shuffle mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Play through this list in order, then shuffle to next list", "Shuffle mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	shuffleModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("Lists and list order", "Shuffle mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Shuffle everything, but play each list entirely before moving on", "Shuffle mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	shuffleModeGroup->addAction(Act);
+	
+	playbackMenu->addSeparator()->setText(tr("Repeat mode"));
+	
+	repeatModeGroup = new QActionGroup(this);  // Makes these exclusive
+	
+	Act = new QAction(tr("Off", "Repeat mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Repeat nothing", "Repeat mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	repeatModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("One", "Repeat mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Repeat a single track", "Repeat mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	repeatModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("List", "Repeat mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Repeat only this list", "Repeat mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	repeatModeGroup->addAction(Act);
+	
+	Act = new QAction(tr("All", "Repeat mode"), this);
+	//Act->setShortcuts(TEMPLISTOFKEYSEQUENCES);
+	Act->setStatusTip(tr("Repeat entire library", "Repeat mode"));
+	connect(Act, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	playbackMenu->addAction(Act);
+	repeatModeGroup->addAction(Act);
 	
 	
 	/// Playlist Menu ///
@@ -311,23 +448,63 @@ MainWindow::MainWindow(QWidget *parent) :
 	/*                  Menu Structure
 	 * Name			Activator key		Default shortcut
 	 * Help						H
-	 *   Check for new version	c
-	 *  <sep>
 	 *   Documentation			d		Ctrl+H, F1
-	 *   Forums					f
-	 *   Report a bug			r
+	 *   Forums					f		None
+	 *   Report a bug			r		None
+	 *   View on GitHub			g		None
 	 *  <sep>
-	 *   View on GitHub			g
-	 *   About Nostalgia		n		(MenuRole must be set to QAction::AboutRole)
-	 *   About Qt				q		(MenuRole must be set to QAction::AboutQtRole)
+	 *   Check for new version	c		None
+	 *  <sep>
+	 *   About Nostalgia		n		None (MenuRole must be set to QAction::AboutRole)
+	 *   About Qt				q		None (MenuRole must be set to QAction::AboutQtRole)
 	 * 
 	 */
 	
-	//newAct = new QAction(tr("&New"), this);
-	//newAct->setShortcuts(QKeySequence::New);
-	//newAct->setStatusTip(tr("Create a new file"));
-	//connect(newAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
-	//libraryMenu->addAction(newAct);
+	docsAct = new QAction(tr("&Documentation", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	docsAct->setStatusTip(tr("Open Nostalgia's online documentation"));
+	connect(docsAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	helpMenu->addAction(docsAct);
+	
+	forumsAct = new QAction(tr("&Forums", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	forumsAct->setStatusTip(tr("Open Nostalgia's user forums page"));
+	connect(forumsAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	helpMenu->addAction(forumsAct);
+	
+	reportBugAct = new QAction(tr("&Report a bug...", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	reportBugAct->setStatusTip(tr("Open Nostalgia's bug submission page"));
+	connect(reportBugAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	helpMenu->addAction(reportBugAct);
+	
+	viewOnGitHubAct = new QAction(tr("&GitHub", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	viewOnGitHubAct->setStatusTip(tr("Open Nostalgia's GitHub page"));
+	connect(viewOnGitHubAct, SIGNAL(triggered()), this, SLOT(viewOnGithub()));
+	helpMenu->addAction(viewOnGitHubAct);
+	
+	helpMenu->addSeparator();
+	
+	checkNewVersionAct = new QAction(tr("&Check for new version...", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	checkNewVersionAct->setStatusTip(tr("Check to see if a new version of Nostalgia is available"));
+	connect(checkNewVersionAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	helpMenu->addAction(checkNewVersionAct);
+	
+	helpMenu->addSeparator();
+	
+	aboutAct = new QAction(tr("About &Nostalgia...", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	aboutAct->setStatusTip(tr("Information about Nostalgia"));
+	connect(aboutAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	helpMenu->addAction(aboutAct);
+	
+	aboutQtAct = new QAction(tr("About &Qt...", "Help menu"), this);
+	//Act->setShortcuts(QKeySequence::New);
+	aboutQtAct->setStatusTip(tr("Information about Qt"));
+	connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(notImplemented()));
+	helpMenu->addAction(aboutQtAct);
 	
 	
 	/////////////////////
@@ -369,6 +546,10 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 	
 }
 
+void MainWindow::viewOnGithub() {
+	QDesktopServices::openUrl(QUrl("https://github.com/3000farad/Nostalgia"));
+}
+
 void MainWindow::notImplemented() {
 	QMessageBox *notImplementedMessage = new QMessageBox(QMessageBox::Information,
 		tr("Feature Not Implemented", "Dialog title"),
@@ -381,12 +562,6 @@ void MainWindow::notImplemented() {
 }
 
 void MainWindow::tbd() {
-	QMessageBox *notImplementedMessage = new QMessageBox(QMessageBox::Critical,
-		"fuc",
-		"fuc",
-														 QMessageBox::No);
-	notImplementedMessage->show();
-	statusBar()->showMessage(tr("Feature Not Implemented"));
 }
 
 MainWindow::~MainWindow() {
